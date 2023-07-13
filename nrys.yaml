@@ -1,0 +1,328 @@
+openapi: 3.0.3
+info:
+  title: NYRS Rest API
+  description: REST API endpoints for managing the nyrs's related resources
+  version: 1.7.x
+servers:
+  - url: "http"
+tags:
+  - name: Produit
+    description: Everything about the deliverys
+  - name: Customer
+    description: Everything about the customer
+  - name: Category
+    description: Everything about the Category
+  - name: Cart
+    description: Everything about the Cart
+paths:
+  /auth/sign-in:
+    post:
+      tags:
+        - Auth
+      summary: Singin the user
+      description: Signin the user
+      operationId: signin
+      requestBody:
+        required: true
+        description: Auth object that we need to signin
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInDTO"
+      responses:
+        200:
+          description: successfull sigin
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        403:
+          description: wrong crudentials
+  /auth/sign-up:
+    post:
+      tags:
+        - Auth
+      summary: Signup the user
+      description: Signup the user
+      operationId: signup
+      requestBody:
+        required: true
+        description: Auth object that we need to signup
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpDTO"
+      responses:
+        200:
+          description: successfull sigin
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDTO"
+        403:
+          description: wrong crudentials
+  /auth/verify-token:
+    post:
+      tags:
+        - Auth
+      summary: verify the user token
+      description: verify the user token
+      operationId: verifyToken
+      requestBody:
+        required: true
+        description: verify token that we need to verify the token
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccessTokenDTO"
+      responses:
+        200:
+          description: token verifyhed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponseDTO"
+        403:
+          description: invalid access token
+  /delivery:
+    get:
+      tags:
+        - Delivery
+      summary: fetch all deliverys
+      description: fetch all deliverys
+      operationId: getAllDeliverys
+      responses:
+        200:
+          description: successfull fecthed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DeliveryDTO"
+        403:
+          description: access forbidden
+    post:
+      tags:
+        - Organisation
+      summary: create new organisation
+      description: create new organisation
+      operationId: createOrganisation
+      requestBody:
+        description: fields that we need to create an organisation
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeliveryDTO"
+      responses:
+        200:
+          description: successfull sigin
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DeliveryDTO"
+  /Delivery/{id}:
+    get:
+      tags:
+        - Delivery
+      summary: fetch a deliverys by id
+      description: fetch a deliverys by id
+      operationId: getDeliveryById
+      responses:
+        200:
+          description: successfull fecthed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DeliveryDTO"
+        403:
+          description: access forbidden
+      parameters:
+        - name: id
+          description: the delivery's id to get
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+  /categories:
+    get:
+      tags:
+        - Category
+      summary: fetch all categories
+      description: fetch all caegories
+      operationId: getAllCategories
+      responses:
+        200:
+          description: successfull fecthed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryDTO"
+        403:
+          description: access forbidden
+  /carts/{id}:
+    get:
+      tags:
+        - Cart
+      summary: fetch all carts
+      description: fetch all carts
+      operationId: getAllCart
+      responses:
+        200:
+          description: successfull fecthed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CartDTO"
+        403:
+          description: access forbidden
+      parameters:
+        - name: id
+          description: cart's owner id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+components:
+  schemas:
+    SignInDTO:
+      type: object
+      required:
+        - phoneNumber
+        - password
+      properties:
+        phoneNumber:
+          type: string
+        password:
+          type: string
+    SignUpDTO:
+      type: object
+      required:
+        - email
+        - firstName
+        - lastName
+        - password
+      properties:
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+    AccessTokenDTO:
+      type: object
+      required:
+        - access_token
+      properties:
+        access_token:
+          type: string
+          description: new access token
+    AuthResponseDTO:
+      type: object
+      required:
+        - id
+        - access_token
+      properties:
+        id:
+          type: integer
+          description: identifier
+        email:
+          type: string
+          description: user's email
+        firstName:
+          type: string
+          description: user's firstname
+        lastName:
+          type: string
+          description: user's lastname
+        access_token:
+          type: string
+          description: user's accessToken
+    CustomerDTO:
+      type: object
+      required:
+        - id
+        - email
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: integer
+          description: identifier
+        email:
+          type: string
+          description: user's email
+        firstName:
+          type: string
+          description: user's firstname
+        lastName:
+          type: string
+          description: user's lastname
+    DeliveryDTO:
+      type: object
+      required:
+        - id
+        - name
+        - quantite
+        - price
+        - image
+      properties:
+        id:
+          type: string
+          description: identifier
+        name:
+          type: string
+          description: delivery's name
+        price:
+          type: number
+          description: delivery's price
+        quantity:
+          type: number
+          description: delivery's quantity
+        image:
+          type: string
+          description: delivery's image
+    CategoryDTO:
+      type: object
+      required:
+        - id
+        - name
+        - image
+      properties:
+        id:
+          type: string
+          description: identifier
+        name:
+          type: string
+          description: delivery type's name
+        image:
+          type: string
+          description: delivery type's image
+    CartDTO:
+      type: object
+      required:
+        - id
+        - name
+        - image
+      properties:
+        id:
+          type: string
+          description: identifier
+        deliverys:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeliveryDTO"
+          description: cart's delivery list

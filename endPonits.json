@@ -1,0 +1,174 @@
+{
+    "base url": "",
+    "inscription": {
+        "path": "/auth/register",
+        "method": "POST",
+        "body": {
+            "email": "",
+            "phoneNumber": "",
+            "password": "",
+            "fullName": ""
+        },
+        "response": {
+            "statusCode": 200,
+            "content": {
+                "id": "",
+                "accessToken": "",
+                "email": "",
+                "phoneNumber": "",
+                "password": "",
+                "fullName": "",
+                "adresse": ""
+            }
+        }
+    },
+    "connexion": {
+        "path": "/auth/login",
+        "method": "POST",
+        "body": {
+            "phoneNumber": "",
+            "password": ""
+        },
+        "response": {
+            "statusCode": 200,
+            "content": {
+                "id": "",
+                "accessToken": "",
+                "email": "",
+                "phoneNumber": "",
+                "password": "",
+                "fullName": "",
+                "adresse": ""
+            }
+        }
+    },
+    "profile": {
+        "path": "/user/{id}",
+        "method": "GET",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "response": {
+            "statusCode": 200,
+            "content": {
+                "id": "",
+                "email": "",
+                "phoneNumber": "",
+                "password": "",
+                "fullName": "",
+                "adresse": ""
+            }
+        }
+    },
+    "creation d'une livraison": {
+        "path": "/deliveries",
+        "method": "POST",
+        "body": {
+            "userId": "",
+            "senderAdress": "",
+            "recipientAdress": "",
+            "recipientName": "",
+            "recipientPhoneNumber": "",
+            "date": "",
+            "hour": "",
+            "description": ""
+        },
+        "response": {
+            "statusCode": 201,
+            "message": "Successful created"
+        }
+    },
+    "details d'une livraison": {
+        "path": "/deliveries/{id}/grocer",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "method": "GET",
+        "response": {
+            "statusCode": 201,
+            "content": {
+                "userId": "",
+                "senderAdress": "",
+                "recipientAdress": "",
+                "recipientName": "",
+                "recipientPhoneNumber": "",
+                "date": "",
+                "hour": "",
+                "description": "",
+                "status": "",
+                "deliverer": {
+                    "id": "",
+                    "fullName": "",
+                    "phoneNumber": ""
+                },
+                "price": ""
+            }
+        }
+    },
+    "liste des livraisons d'un epicier": {
+        "path": "/deliveries/{id}/grocer",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "method": "GET",
+        "response": {
+            "statusCode": 201,
+            "content": [
+                {
+                    "userId": "",
+                    "senderAdress": "",
+                    "recipientAdress": "",
+                    "recipientName": "",
+                    "recipientPhoneNumber": "",
+                    "date": "",
+                    "hour": "",
+                    "description": "",
+                    "status": "",
+                    "deliverer": {
+                        "id": "",
+                        "fullName": "",
+                        "phoneNumber": ""
+                    },
+                    "price": ""
+                }
+            ]
+        }
+    },
+    "liste des livraisons d'un livreur": {
+        "path": "/deliveries/{id}/deliverer",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "method": "GET",
+        "response": {
+            "statusCode": 201,
+            "content": [
+                {
+                    "userId": "",
+                    "senderAdress": "",
+                    "recipientAdress": "",
+                    "recipientName": "",
+                    "recipientPhoneNumber": "",
+                    "date": "",
+                    "hour": "",
+                    "description": "",
+                    "status": "",
+                    "deliverer": {
+                        "id": "",
+                        "fullName": "",
+                        "phoneNumber": ""
+                    },
+                    "price": ""
+                }
+            ]
+        }
+    }
+}
