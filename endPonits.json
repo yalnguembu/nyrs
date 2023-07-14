@@ -81,7 +81,7 @@
         }
     },
     "details d'une livraison": {
-        "path": "/deliveries/{id}/grocer",
+        "path": "/deliveries/{id}",
         "params": [
             {
                 "id": "dans le path"

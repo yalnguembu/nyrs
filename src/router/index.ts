@@ -26,6 +26,7 @@ router.get("/deliveries", isUserConnected, DeliveryController.getAll);
 // router.put("/deliveries/:id", isUserConnected, DeliveryController.update);
 // router.delete("/deliveries/:id", isUserConnected, DeliveryController.delete);
 router.get("/deliveries/:id", isUserConnected, DeliveryController.getById);
+router.get("/deliveries/:id/grocer", isUserConnected, DeliveryController.getById);
 router.put(
   "/deliveries/:id/cancel",
   isUserConnected,

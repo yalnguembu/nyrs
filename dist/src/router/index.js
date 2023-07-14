@@ -25,6 +25,7 @@ exports.router.get("/deliveries", middelwares_1.isUserConnected, delivery_1.Deli
 // router.put("/deliveries/:id", isUserConnected, DeliveryController.update);
 // router.delete("/deliveries/:id", isUserConnected, DeliveryController.delete);
 exports.router.get("/deliveries/:id", middelwares_1.isUserConnected, delivery_1.DeliveryController.getById);
+exports.router.get("/deliveries/:id/grocer", middelwares_1.isUserConnected, delivery_1.DeliveryController.getById);
 exports.router.put("/deliveries/:id/cancel", middelwares_1.isUserConnected, delivery_1.DeliveryController.cancel);
 exports.router.use("*", (req, res, next) => {
     next(new utils_1.NotFoundError(`'${req.baseUrl}'`));
