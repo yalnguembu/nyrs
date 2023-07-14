@@ -19,9 +19,8 @@ model Delivery {
   status               String
 
   userId      String
-  owner       Grocer    @relation(fields: [userId], references: [id])
+  owner       Grocer @relation(fields: [userId], references: [id])
   delivererId String
-  deliverer   Deliverer @relation(fields: [delivererId], references: [id])
 }
 
 model Grocer {
@@ -44,8 +43,6 @@ model Deliverer {
   password     String
   picture      String   @default("user-default.png")
   creationDate DateTime @default(now())
-
-  deliveries Delivery[]
 }
 
 model Manager {
