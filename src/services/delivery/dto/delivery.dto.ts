@@ -5,7 +5,8 @@ export class DeliveryDTO {
     this.description = data.description ?? "";
     this.date = data.date ?? "";
     this.userId = data.userId ?? "";
-    this.delivererId = data.delivererId ?? "";
+    this.delivererId = data.delivererId ?? "-";
+    this.status = data.status ?? "draft";
     this.senderAdress = data.senderAdress ?? "";
     this.recipientAdress = data.recipientAdress ?? "";
     this.recipientPhoneNumber = data.recipientPhoneNumber ?? "";
@@ -13,14 +14,15 @@ export class DeliveryDTO {
     this.hour = data.hour ?? "";
   }
 
-  id?: string;
   @IsNotEmpty()
   @IsString()
   userId: string;
 
-  @IsNotEmpty()
   @IsString()
   delivererId?: string;
+
+  @IsString()
+  status?: string;
 
   @IsNotEmpty()
   @IsString()
@@ -40,11 +42,11 @@ export class DeliveryDTO {
 
   @IsNotEmpty()
   @IsString()
-  date?: string;
+  date: string;
 
   @IsNotEmpty()
   @IsString()
-  hour?: string;
+  hour: string;
 
   @IsString()
   description?: string;
