@@ -8,29 +8,36 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export class AuthService {
-  static async register(crudentials: Pick<User, "email" | "password">) {
+  static async registerGrocer(
+    crudentials: Pick<User, "email" | "password" | "fullName" | "phoneNumber">
+  ) {
     const salt = await bcrypt.genSalt(10);
     const hahsedPassword = await bcrypt.hash(crudentials.password, salt);
-    const { id, email, username, role } = await prisma.user.create({
+    const newUser = await prisma.grocer.create({
       data: {
-        username: crudentials.email,
+        fullName: crudentials.fullName,
         email: crudentials.email,
+        phoneNumber: crudentials.phoneNumber,
         password: hahsedPassword,
       },
     });
 
+    const user = new User(newUser);
+
     const accessToken = encodeToken({
-      id,
-      email,
-      role,
+      id: user.id,
+      email: user.email,
+      role: "grocer",
     });
 
-    return { id, email, username, accessToken, role };
+    return { ...user, accessToken };
   }
 
-  static async login(userCrudential: Pick<User, "email" | "password">) {
-    const user = await prisma.user.findUnique({
-      where: { email: userCrudential.email },
+  static async loginGrocer(
+    userCrudential: Pick<User, "phoneNumber" | "password">
+  ) {
+    const user = await prisma.grocer.findUnique({
+      where: { phoneNumber: userCrudential.phoneNumber },
     });
 
     if (!user)
@@ -45,30 +52,30 @@ export class AuthService {
       throw new ApiError(StatusCodes.UNAUTHORIZED, "wrong crudentials");
     }
 
-    const { id, email, username, role } = user;
+    const transformedUser = new User(user);
     const accessToken = encodeToken({
-      id,
-      email,
-      role: role as unknown as string,
+      id: user.id,
+      email: user.email,
+      role: "grocer",
     });
-    return { id, email, username, accessToken, role };
+    return { ...transformedUser, accessToken };
   }
 
   static async verifyToken(token: string) {
     return decodeToken(token);
   }
 
-  static async editPassowrd(id: string, newPassword: string) {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+  // static async editPassowrd(id: string, newPassword: string) {
+  //   const salt = await bcrypt.genSalt(10);
+  //   const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    const { email, username, _id } = (await UserModel.findByIdAndUpdate(
-      id,
-      {
-        $set: { password: hashedPassword },
-      },
-      { new: true }
-    )) as unknown as UserDTO;
-    return { email, username, id: _id };
-  }
+  //   const { email, fullName, id } = (await UserModel.findByIdAndUpdate(
+  //     id,
+  //     {
+  //       $set: { password: hashedPassword },
+  //     },
+  //     { new: true }
+  //   )) as unknown as UserDTO;
+  //   return { email, fullName, id: id };
+  // }
 }

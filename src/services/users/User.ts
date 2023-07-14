@@ -7,19 +7,23 @@ export class User {
   }
 
   get id() {
-    return this.user._id ?? "";
+    return this.user.id ?? "";
   }
 
   get email() {
     return this.user.email ?? "";
   }
 
+  get phoneNumber() {
+    return this.user.phoneNumber ?? "";
+  }
+
   get password() {
     return this.user.password ?? "";
   }
 
-  get username() {
-    return this.user.username ?? "";
+  get fullName() {
+    return this.user.fullName ?? "";
   }
 
   get picture() {
@@ -34,7 +38,7 @@ export class User {
     return {
       id: this.id,
       email: this.email,
-      username: this.username,
+      fullName: this.fullName,
       picture: this.picture,
       role: this.role,
     };

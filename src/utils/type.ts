@@ -15,7 +15,8 @@ export type UserSchema = {
   password?: string;
   email: string;
   role?: string;
-  username?: string;
+  fullName?: string;
+  phoneNumber?: string;
   picture?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -26,11 +27,17 @@ export type TagSchema = {
   description?: string;
 };
 
-export type NoteSchema = {
+export type DeliverySchema = {
   id?: string;
-  ownerId: string;
-  title: string;
+  userId: string;
+  owner?: Object;
+  deliverer?: Object;
+  delivererId?: string;
+  senderAdress: string;
+  recipientAdress: string;
+  recipientPhoneNumber: string;
+  recipientName: string;
   description?: string;
-  creationDate?: string;
-  tags?: string[];
+  date?: string;
+  hour?: string;
 };

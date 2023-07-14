@@ -22,7 +22,6 @@ model Delivery {
   owner       Grocer    @relation(fields: [userId], references: [id])
   delivererId String
   deliverer   Deliverer @relation(fields: [delivererId], references: [id])
-  managerId   String?
 }
 
 model Grocer {

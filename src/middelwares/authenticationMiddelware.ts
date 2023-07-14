@@ -14,7 +14,7 @@ export const isUserConnected = (
     next(new ApiError(StatusCodes.UNAUTHORIZED, "Please authenticate"));
 
   req.body.user = {
-    id: decodedToken?._id,
+    id: decodedToken?.id,
     email: decodedToken?.email,
     role: "admin",
   };

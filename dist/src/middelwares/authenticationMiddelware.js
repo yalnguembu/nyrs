@@ -10,7 +10,7 @@ const isUserConnected = (req, res, next) => {
     if (!token && decodedToken)
         next(new utils_1.ApiError(http_status_codes_1.StatusCodes.UNAUTHORIZED, "Please authenticate"));
     req.body.user = {
-        id: decodedToken === null || decodedToken === void 0 ? void 0 : decodedToken._id,
+        id: decodedToken === null || decodedToken === void 0 ? void 0 : decodedToken.id,
         email: decodedToken === null || decodedToken === void 0 ? void 0 : decodedToken.email,
         role: "admin",
     };
