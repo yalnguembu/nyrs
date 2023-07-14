@@ -40,6 +40,7 @@ export class DeliveryController {
   }
 
   static async getByGrocer(req: Request, res: Response, next: NextFunction) {
+    const userId = req.params.id
     try {
       res
         .status(StatusCodes.OK)

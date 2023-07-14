@@ -6,7 +6,20 @@ const prisma = new PrismaClient();
 
 export abstract class DeliveryServices {
   static async create(data: DeliverySchema) {
-    return await prisma.delivery.create({ data });
+    return await prisma.delivery.create({
+      data: {
+        date: data.date ?? "",
+        delivererId: data.delivererId ?? "",
+        description: data.description ?? "",
+        hour: data.hour ?? "",
+        recipientAdress: data.recipientAdress,
+        recipientName: data.recipientName,
+        recipientPhoneNumber: data.recipientPhoneNumber,
+        senderAdress: data.senderAdress,
+        userId: data.userId,
+        status: data.status ?? "",
+      },
+    });
   }
 
   static async getAll() {

@@ -30,7 +30,7 @@ export type TagSchema = {
 export type DeliverySchema = {
   id?: string;
   userId: string;
-  owner?: Object;
+  owner?: Object | undefined;
   deliverer?: Object;
   delivererId?: string;
   senderAdress: string;
@@ -40,4 +40,5 @@ export type DeliverySchema = {
   description?: string;
   date?: string;
   hour?: string;
+  status?: string;
 };
