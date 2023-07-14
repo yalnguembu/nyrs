@@ -5,7 +5,7 @@ const http_status_codes_1 = require("http-status-codes");
 const utils_1 = require("../utils");
 const isUserConnected = (req, res, next) => {
     var _a;
-    let token = (_a = req.headers.authorization) !== null && _a !== void 0 ? _a : "";
+    const token = (_a = req.headers.authorization) !== null && _a !== void 0 ? _a : "";
     const decodedToken = (0, utils_1.decodeToken)(token.substring(7));
     if (!token && decodedToken)
         next(new utils_1.ApiError(http_status_codes_1.StatusCodes.UNAUTHORIZED, "Please authenticate"));

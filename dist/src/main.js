@@ -32,7 +32,7 @@ const cors_1 = __importDefault(require("cors"));
 const router_1 = require("./router");
 Promise.resolve().then(() => __importStar(require("./configs/db.config")));
 const app = (0, express_1.default)();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3456;
 dotenv_1.default.config();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());

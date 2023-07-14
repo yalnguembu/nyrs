@@ -7,7 +7,7 @@ export const isUserConnected = (
   res: Response,
   next: NextFunction
 ) => {
-  let token = req.headers.authorization ?? "";
+  const token = req.headers.authorization ?? "";
   const decodedToken = decodeToken(token.substring(7));
 
   if (!token && decodedToken)

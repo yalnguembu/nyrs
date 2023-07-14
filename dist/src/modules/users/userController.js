@@ -23,9 +23,9 @@ class UserController {
                 try {
                     const user = yield userServices_1.UserSevices.getById(userId);
                     if (user)
-                        res.status(200).json(user);
+                        res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json(user);
                     else
-                        res.status(422).json("user not found");
+                        next(new utils_1.ApiError(http_status_codes_1.StatusCodes.NOT_FOUND, "user not found"));
                 }
                 catch (error) {
                     next(error);
@@ -63,7 +63,7 @@ class UserController {
                     if (updatedUser)
                         res.status(http_status_codes_1.StatusCodes.ACCEPTED).json(updatedUser);
                     else
-                        res.status(http_status_codes_1.StatusCodes.NOT_ACCEPTABLE).json("user not found");
+                        res.status(http_status_codes_1.StatusCodes.NOT_FOUND).json("user not found");
                 }
                 catch (error) {
                     next(error);
@@ -82,7 +82,7 @@ class UserController {
                     if (yield userServices_1.UserSevices.delete(userId))
                         res.status(http_status_codes_1.StatusCodes.ACCEPTED).json({ success: true });
                     else
-                        next(new utils_1.ApiError(http_status_codes_1.StatusCodes.NOT_ACCEPTABLE, "user not found"));
+                        next(new utils_1.ApiError(http_status_codes_1.StatusCodes.NOT_FOUND, "user not found"));
                 }
                 catch (error) {
                     next(error);

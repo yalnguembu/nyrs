@@ -18,43 +18,47 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const utils_1 = require("../../utils");
 const http_status_codes_1 = require("http-status-codes");
 const utils_2 = require("../../utils");
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
 class AuthService {
     static register(crudentials) {
         return __awaiter(this, void 0, void 0, function* () {
             const salt = yield bcrypt_1.default.genSalt(10);
             const hahsedPassword = yield bcrypt_1.default.hash(crudentials.password, salt);
-            const newUser = new users_1.userModel({
-                email: crudentials.email,
-                password: hahsedPassword,
+            const { id, email, username, role } = yield prisma.user.create({
+                data: {
+                    username: crudentials.email,
+                    email: crudentials.email,
+                    password: hahsedPassword,
+                },
             });
-            const { _id, email, username, role } = yield newUser.save();
             const accessToken = (0, utils_1.encodeToken)({
-                _id: _id,
+                id,
                 email,
                 role,
             });
-            return { id: _id, email, username, accessToken, role };
+            return { id, email, username, accessToken, role };
         });
     }
     static login(userCrudential) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const user = (yield users_1.userModel.findOne({
-                email: userCrudential.email,
-            }));
+            const user = yield prisma.user.findUnique({
+                where: { email: userCrudential.email },
+            });
             if (!user)
                 throw new utils_1.ApiError(http_status_codes_1.StatusCodes.UNAUTHORIZED, "wrong crudentials");
             const validate = yield bcrypt_1.default.compare(userCrudential.password, (_a = user.password) !== null && _a !== void 0 ? _a : "");
             if (!validate) {
                 throw new utils_1.ApiError(http_status_codes_1.StatusCodes.UNAUTHORIZED, "wrong crudentials");
             }
-            const { _id, email, username, role } = user;
+            const { id, email, username, role } = user;
             const accessToken = (0, utils_1.encodeToken)({
-                _id: _id,
+                id,
                 email,
                 role: role,
             });
-            return { id: _id, email, username, accessToken, role };
+            return { id, email, username, accessToken, role };
         });
     }
     static verifyToken(token) {
@@ -65,7 +69,7 @@ class AuthService {
     static editPassowrd(id, newPassword) {
         return __awaiter(this, void 0, void 0, function* () {
             const salt = yield bcrypt_1.default.genSalt(10);
-            let hashedPassword = yield bcrypt_1.default.hash(newPassword, salt);
+            const hashedPassword = yield bcrypt_1.default.hash(newPassword, salt);
             const { email, username, _id } = (yield users_1.userModel.findByIdAndUpdate(id, {
                 $set: { password: hashedPassword },
             }, { new: true }));

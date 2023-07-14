@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Delivery {
+  id                   String @id @default(uuid())
+  senderAdress         String
+  recipientAdress      String
+  recipientPhoneNumber String
+  recipientName        String
+  description          String
+  date                 String
+  hour                 String
+  status               String
+
+  userId      String
+  owner       Grocer    @relation(fields: [userId], references: [id])
+  delivererId String
+  deliverer   Deliverer @relation(fields: [delivererId], references: [id])
+  managerId   String?
+}
+
+model Grocer {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  phoneNumber  String   @unique
+  password     String
+  picture      String   @default("user-default.png")
+  creationDate DateTime @default(now())
+
+  deliveries Delivery[]
+}
+
+model Deliverer {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  phoneNumber  String   @unique
+  password     String
+  picture      String   @default("user-default.png")
+  creationDate DateTime @default(now())
+
+  deliveries Delivery[]
+}
+
+model Manager {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  phoneNumber  String   @unique
+  password     String
+  picture      String   @default("user-default.png")
+  creationDate DateTime @default(now())
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  fullName     String
+  email        String   @unique
+  password     String
+  picture      String   @default("user-default.png")
+  creationDate DateTime @default(now())
+}

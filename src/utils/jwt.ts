@@ -1,4 +1,4 @@
-import jwt, { Secret, JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import { ApiError } from "./error";
 import { StatusCodes } from "http-status-codes";

@@ -10,8 +10,6 @@ class User {
                 username: this.username,
                 picture: this.picture,
                 role: this.role,
-                createdAt: this.createdAt,
-                updatedAt: this.updatedAt,
             };
         };
         this.user = data;
@@ -39,14 +37,6 @@ class User {
     get role() {
         var _a;
         return (_a = this.user.role) !== null && _a !== void 0 ? _a : "";
-    }
-    get createdAt() {
-        var _a;
-        return (_a = this.user.createdAt) !== null && _a !== void 0 ? _a : "";
-    }
-    get updatedAt() {
-        var _a;
-        return (_a = this.user.updatedAt) !== null && _a !== void 0 ? _a : "";
     }
 }
 exports.User = User;

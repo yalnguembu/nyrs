@@ -1,5 +1,3 @@
-import { ObjectId } from "mongoose";
-
 export interface Error {
   name: string;
   message: string;
@@ -7,13 +5,13 @@ export interface Error {
 }
 
 export type DecodedToken = {
-  _id: string;
+  id: string;
   email: string;
   role: string;
 };
 
 export type UserSchema = {
-  _id?: string;
+  id?: string;
   password?: string;
   email: string;
   role?: string;
@@ -22,27 +20,17 @@ export type UserSchema = {
   createdAt?: string;
   updatedAt?: string;
 };
-export type CategorySchema = {
-  _id?: string;
+export type TagSchema = {
+  id?: string;
   title?: string;
-  summary?: string;
-};
-
-export type ServiceSchema = {
-  _id?: string;
-  name: string;
   description?: string;
-  category: string;
-  picture?: string;
-  price: number;
-  duration: number;
 };
 
-export type ReservationSchema = {
-  _id?: string;
-  service: ServiceSchema;
-  date: string;
-  time: string;
-  client: UserSchema;
-  maker: string;
+export type NoteSchema = {
+  id?: string;
+  ownerId: string;
+  title: string;
+  description?: string;
+  creationDate?: string;
+  tags?: string[];
 };

@@ -26,7 +26,7 @@ class AuthController {
                 const errors = yield (0, class_validator_1.validate)(crudentials);
                 if (errors.length)
                     throw new utils_1.ApiError(http_status_codes_1.StatusCodes.BAD_REQUEST, "Invalid crudentials");
-                res.status(200).send(yield authService_1.AuthService.login(crudentials));
+                res.status(http_status_codes_1.StatusCodes.OK).send(yield authService_1.AuthService.login(crudentials));
             }
             catch (error) {
                 next(error);
@@ -43,7 +43,9 @@ class AuthController {
                 if (errors.length)
                     throw new utils_1.ApiError(http_status_codes_1.StatusCodes.BAD_REQUEST, "Invalid crudentials");
                 else
-                    res.status(200).json(yield authService_1.AuthService.register(crudentials));
+                    res
+                        .status(http_status_codes_1.StatusCodes.CREATED)
+                        .json(yield authService_1.AuthService.register(crudentials));
             }
             catch (error) {
                 next(error);
@@ -57,31 +59,33 @@ class AuthController {
                 if (!token)
                     throw new utils_1.ApiError(http_status_codes_1.StatusCodes.BAD_REQUEST, "please provide a token");
                 yield authService_1.AuthService.verifyToken(token);
-                res.status(200).json({ success: true });
+                res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json({ success: true });
             }
             catch (error) {
                 next(error);
             }
         });
     }
-    static editPassowrd(req, res) {
+    static editPassowrd(req, res, next) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const id = (_a = req.params) === null || _a === void 0 ? void 0 : _a.id;
             const password = req.body.newPassword;
             if (!password) {
-                res.status(400).send("Password must be filled");
+                next(new utils_1.ApiError(http_status_codes_1.StatusCodes.BAD_REQUEST, "Password must be filled"));
             }
             else if (id && req.body.userId === id) {
                 try {
-                    res.status(200).json(authService_1.AuthService.editPassowrd(id, password));
+                    res
+                        .status(http_status_codes_1.StatusCodes.ACCEPTED)
+                        .json(authService_1.AuthService.editPassowrd(id, password));
                 }
                 catch (error) {
-                    res.status(500);
+                    next(error);
                 }
             }
             else {
-                res.status(400).send("wrong id");
+                next(new utils_1.ApiError(http_status_codes_1.StatusCodes.BAD_REQUEST, "wrong id"));
             }
         });
     }

@@ -5,7 +5,7 @@ import { router } from "./router";
 import("./configs/db.config");
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3456;
 dotenv.config();
 
 app.use(express.json());
