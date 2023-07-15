@@ -1,7 +1,7 @@
 {
     "base url": "",
     "inscription": {
-        "path": "/auth/register",
+        "path": "/auth/signup",
         "method": "POST",
         "body": {
             "email": "",
@@ -23,7 +23,7 @@
         }
     },
     "connexion": {
-        "path": "/auth/login",
+        "path": "/auth/signin",
         "method": "POST",
         "body": {
             "phoneNumber": "",
@@ -149,7 +149,7 @@
         ],
         "method": "GET",
         "response": {
-            "statusCode": 201,
+            "statusCode": 200,
             "content": [
                 {
                     "userId": "",
@@ -169,6 +169,93 @@
                     "price": ""
                 }
             ]
+        }
+    },
+    "pickup une livraison (par un livreur)": {
+        "path": "/deliveries/{id}/pick-up",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "method": "PUT",
+        "response": {
+            "statusCode": 200,
+            "content": {
+                "userId": "",
+                "senderAdress": "",
+                "recipientAdress": "",
+                "recipientName": "",
+                "recipientPhoneNumber": "",
+                "date": "",
+                "hour": "",
+                "description": "",
+                "status": "",
+                "deliverer": {
+                    "id": "",
+                    "fullName": "",
+                    "phoneNumber": ""
+                },
+                "price": ""
+            }
+        }
+    },
+    "moving une livraison (par un livreur)": {
+        "path": "/deliveries/{id}/moving",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "method": "PUT",
+        "response": {
+            "statusCode": 200,
+            "content": {
+                "userId": "",
+                "senderAdress": "",
+                "recipientAdress": "",
+                "recipientName": "",
+                "recipientPhoneNumber": "",
+                "date": "",
+                "hour": "",
+                "description": "",
+                "status": "",
+                "deliverer": {
+                    "id": "",
+                    "fullName": "",
+                    "phoneNumber": ""
+                },
+                "price": ""
+            }
+        }
+    },
+    "done une livraison (par un livreur)": {
+        "path": "/deliveries/{id}/done",
+        "params": [
+            {
+                "id": "dans le path"
+            }
+        ],
+        "method": "PUT",
+        "response": {
+            "statusCode": 200,
+            "content": {
+                "userId": "",
+                "senderAdress": "",
+                "recipientAdress": "",
+                "recipientName": "",
+                "recipientPhoneNumber": "",
+                "date": "",
+                "hour": "",
+                "description": "",
+                "status": "",
+                "deliverer": {
+                    "id": "",
+                    "fullName": "",
+                    "phoneNumber": ""
+                },
+                "price": ""
+            }
         }
     }
 }

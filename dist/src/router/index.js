@@ -27,7 +27,7 @@ exports.router.get("/deliveries", middelwares_1.isUserConnected, delivery_1.Deli
 exports.router.get("/deliveries/:id", middelwares_1.isUserConnected, delivery_1.DeliveryController.getById);
 exports.router.get("/deliveries/:id/grocer", middelwares_1.isUserConnected, delivery_1.DeliveryController.getByGrocer);
 exports.router.get("/deliveries/:id/deliverer", middelwares_1.isUserConnected, delivery_1.DeliveryController.getByGrocer);
-exports.router.put("/deliveries/:id/pickUp", middelwares_1.isUserConnected, delivery_1.DeliveryController.pickUp);
+exports.router.put("/deliveries/:id/pick-up", middelwares_1.isUserConnected, delivery_1.DeliveryController.pickUp);
 exports.router.put("/deliveries/:id/moving", middelwares_1.isUserConnected, delivery_1.DeliveryController.moving);
 exports.router.put("/deliveries/:id/done", middelwares_1.isUserConnected, delivery_1.DeliveryController.done);
 exports.router.use("*", (req, res, next) => {

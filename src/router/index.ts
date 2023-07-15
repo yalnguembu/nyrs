@@ -30,7 +30,7 @@ router.get("/deliveries/:id", isUserConnected, DeliveryController.getById);
 router.get("/deliveries/:id/grocer", isUserConnected, DeliveryController.getByGrocer);
 router.get("/deliveries/:id/deliverer", isUserConnected, DeliveryController.getByGrocer);
 router.put(
-  "/deliveries/:id/pickUp",
+  "/deliveries/:id/pick-up",
   isUserConnected,
   DeliveryController.pickUp
 );
