@@ -4,6 +4,7 @@ import express from "express";
 import { AuthController } from "../services/auth";
 // import { UserController } from "../services/users";
 import { DeliveryController } from "../services/delivery";
+import { DelivererController } from "../services/deliverer";
 import { isUserAdmin, isUserConnected } from "../middelwares";
 import { NotFoundError, ErrorHandler } from "../utils";
 
@@ -26,11 +27,22 @@ router.get("/deliveries", isUserConnected, DeliveryController.getAll);
 // router.put("/deliveries/:id", isUserConnected, DeliveryController.update);
 // router.delete("/deliveries/:id", isUserConnected, DeliveryController.delete);
 router.get("/deliveries/:id", isUserConnected, DeliveryController.getById);
-router.get("/deliveries/:id/grocer", isUserConnected, DeliveryController.getById);
+router.get("/deliveries/:id/grocer", isUserConnected, DeliveryController.getByGrocer);
+router.get("/deliveries/:id/deliverer", isUserConnected, DeliveryController.getByGrocer);
 router.put(
-  "/deliveries/:id/cancel",
+  "/deliveries/:id/pickUp",
   isUserConnected,
-  DeliveryController.cancel
+  DeliveryController.pickUp
+);
+router.put(
+  "/deliveries/:id/moving",
+  isUserConnected,
+  DeliveryController.moving
+);
+router.put(
+  "/deliveries/:id/done",
+  isUserConnected,
+  DeliveryController.done
 );
 
 router.use("*", (req: Request, res: Response, next: NextFunction) => {

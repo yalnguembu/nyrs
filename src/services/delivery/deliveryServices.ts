@@ -27,11 +27,48 @@ export abstract class DeliveryServices {
   }
 
   static async getByUserId(userId: string) {
-    return await prisma.delivery.findMany({ select: { userId: true } });
+    return await prisma.delivery.findMany({ where: { userId } });
   }
 
   static async getByDelivererId(delivererId: string) {
-    return await prisma.delivery.findMany({ select: { delivererId: true } });
+    return await prisma.delivery.findMany({ where: { delivererId } });
+  }
+
+  static async assignToDeliverer(id: string, delivererId: string) {
+    return await prisma.delivery.update({
+      where: { id },
+      data: {
+        status: "pickup",
+        delivererId,
+      },
+    });
+  }
+
+  static async pickUp(id: string) {
+    return await prisma.delivery.update({
+      where: { id },
+      data: {
+        status: "pickup",
+      },
+    });
+  }
+
+  static async done(id: string) {
+    return await prisma.delivery.update({
+      where: { id },
+      data: {
+        status: "done",
+      },
+    });
+  }
+
+  static async moving(id: string) {
+    return await prisma.delivery.update({
+      where: { id },
+      data: {
+        status: "moving",
+      },
+    });
   }
 
   static async getById(id: string) {
