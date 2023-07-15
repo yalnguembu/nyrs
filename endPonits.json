@@ -7,7 +7,8 @@
             "email": "",
             "phoneNumber": "",
             "password": "",
-            "fullName": ""
+            "fullName": "",
+            "role":"grocer || deliverer || manager "
         },
         "response": {
             "statusCode": 200,
@@ -18,7 +19,8 @@
                 "phoneNumber": "",
                 "password": "",
                 "fullName": "",
-                "adresse": ""
+                "adresse": "",
+                "role":"grocer || deliverer || manager "
             }
         }
     },
